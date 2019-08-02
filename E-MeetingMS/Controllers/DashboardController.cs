@@ -15,7 +15,7 @@ namespace E_MeetingMS.Controllers
 {
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
 
-        //[Authorize(Roles="SuperAdmin")]
+        [Authorize(Roles="SuperAdmin")]
     public class DashboardController : Controller
     {
         public List<Role> roles;
