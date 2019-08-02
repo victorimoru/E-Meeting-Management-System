@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav w3-text-grey navbar-nav navbar-right w3-margin-top">
+        <li class="w3-round-large">
+
+
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage",  @class="w3-text-white w3-round-large"})
+        </li>
+        <li class="w3-round-xlarge" ><a class="w3-text-white w3-round-large" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav w3-text-grey navbar-nav navbar-right w3-margin-top">
+        @*<li class="w3-hover-unilag">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li class="w3-hover-unilag">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
+        
+        @*<li><a class="w3-round-large" href="@Url.Action("Register", "Account")" id="registerLink"><span class="glyphicon glyphicon-user"></span>  Register</a></li>*@
+        <li><a class="w3-round-large"  href="@Url.Action("Login", "Account")" id="loginLink"><span class="glyphicon glyphicon-log-in"></span>   Login</a></li>
+
+    </ul>
+
+    
+}

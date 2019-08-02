@@ -1,0 +1,95 @@
+﻿@using E_MeetingMS.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Index2";
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+
+
+   <div class="w3-container">
+   
+    @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { id = "LoginForm" }))
+    {
+       @Html.AntiForgeryToken()
+        <div class="form-group  w3-margin-top">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "w3-large" })
+
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "w3-input w3-border w3-round-large", placeholder = " Username", id = "user_name" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "w3-large" })
+
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "w3-input w3-border w3-round-large", placeholder = " Password", id = "user_password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                        </div>
+
+                       
+                        <h5 id="message"></h5>
+                        <p><button class="btn btn-lg w3-black" type="submit" id="login">Sign In</button></p>
+    }
+
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            $("#LoginForm").on("submit", function (event) {
+                event.preventDefault();
+
+                if ($(this).valid()) {
+
+
+                    var data = {};
+                    data.Email = $("#user_name").val();
+                    data.Password = $("#user_password").val();
+                    var token = $('input[name="__RequestVerificationToken"]').val();
+
+
+                    $("#message").html("Logging in...");
+                    //alert(UserName + "  " + Password + "  " + token);
+
+                    $.ajax({
+                        url: "/Account/Login",
+                        method: "POST",
+                        data: {
+                            model: data,
+                            __RequestVerificationToken: token,
+                            returnUrl: "Home/Index"   // you can modify the returnUrl value here
+                        },
+
+                        success: function (result) {
+                            document.location.href = '@Url.Action("Index","Home")'
+                        },
+                        error: function(){
+                            $("#message").html("Invalid Login Attempt!");
+                        }
+
+                    })
+
+                }
+            });
+
+
+
+        });
+    </script>
+
+}
+
+
+
+
+
+
+    
+    
+
+
+
+

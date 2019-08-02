@@ -1,0 +1,43 @@
+﻿@model E_MeetingMS.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<h2>@ViewBag.Title.</h2>
+<div class="w3-row" style="margin-top: 70px;">
+    <div class="col-md-push-4 w3-black w3-opacity-min col-md-5 w3-card-4 w3-padding-16 w3-round-xxlarge w3-margin w3-border-black w3-text-white">
+        <h3 class="w3-text-white">Associate your @ViewBag.LoginProvider account.</h3>
+
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <h4>Association Form</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p class="w3-text-white w3-large">
+                You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+                Please enter a user name for this site below and click the Register button to finish
+                logging in.
+            </p>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label w3-text-white w3-large" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control w3-text-black w3-large" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-danger2 btn-block" value="Register" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,440 @@
+﻿@model E_MeetingMS.ViewModels.DashboardViewModel
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="icon" type="image/x-icon" href="~/Images/unilag_icon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/Dashboard_css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    @RenderBody()
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-bar w3-top w3-card-4 w3-hide-large w3-unilag-maroon w3-large">
+        <span class="w3-bar-item w3-text-white w3-wide" style="font-weight: bold; font-family: Rockwell">E-Meeting MS</span>
+        <a href="javascript:void(0)" class="w3-right w3-bar-item w3-button " onclick="w3_open()"><i class="fa fa-bars w3-text-white w3-margin-right w3-xlarge"></i></a>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-container" margin-top:43px;">
+        <div class="w3-main w3-white" style="margin-left:346px">
+
+            <!-- Push down content on small screens -->
+            <div class="w3-hide-large" style="margin-top:80px"></div>
+            <!-- Push down content on small screens -->
+            <div class="w3-hide-large" style="margin-top:80px"></div>
+
+            <!-- Header -->
+            <div>
+                <header class="w3-container" style="">
+                    <p><b><i class="fa fa-dashboard"></i> My Dashboard</b></p>
+
+                </header>
+                <div class="w3-row-padding w3-margin-bottom">
+                    <div class="w3-half jackky">
+                        <div class="w3-container w3-unilag-maroon w3-round-large w3-text-unilag-gold w3-padding-16 w3-hover-opacity">
+                            <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                                <h3 class="w3-text-white" id="MeetingCounter">@Model.Meetings.Count()</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4 class="w3-text-white"><strong>Meeting Notifications</strong></h4>
+                        </div>
+                    </div>
+
+                    <div class="w3-half">
+                        <div class="w3-container w3-unilag-gold w3-text-white w3-padding-16 w3-round-large w3-hover-opacity">
+                            <div class="w3-left"><i class="fa fa-users w3-xxxlarge  "></i></div>
+                            <div class="w3-right">
+                                <h3 class="w3-text-white">@Model.Users.Count()</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4 class="w3-text-white"><strong>Participants</strong></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meeting Details Table -->
+
+            <div class="w3-container  w3-hide-large w3-hide-small  w3-card-4 w3-padding">
+                <h3 class="w3-text-unilag-maroon">Meeting Details</h3>
+                <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white " id="MeetingTablee">
+                    <thead class="w3-text-unilag-maroon w3-large" style="font-weight: bold;">
+                        <tr>
+                            <td>Title</td>
+                            <td>Venue</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td>Docs</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Meetings)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Venue</td>
+                                <td>@item.DateTime.ToString("MMM d, yyyy")</td>
+                                <td>@item.DateTime.ToString("hh:mm")</td>
+                                <td>@item.Documents.Count</td>
+                                <td><button class="btn btn-danger2 " id="js-delete-btn" Meeting_ID=" @item.MeetingID"><i class="fa fa-trash"></i></button></td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table><br>
+
+            </div>
+            <div class="w3-container  w3-hide-large w3-hide-medium  w3-card-4 w3-padding">
+                <h3 class="w3-text-unilag-maroon">Meeting Details</h3>
+                <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white " id="MeetingTablee">
+                    <thead class="w3-text-unilag-maroon w3-large" style="font-weight: bold;">
+                        <tr>
+                            <td>Title</td>
+                            <td>Venue</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Meetings)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Venue</td>
+                                <td>@item.DateTime.ToString("MMM d, yyyy")</td>
+                                <td>@item.DateTime.ToString("hh:mm")</td>
+
+                                <td><button class="btn btn-danger2 " id="js-delete-btn" Meeting_ID=" @item.MeetingID"><i class="fa fa-trash"></i></button></td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table><br>
+
+            </div>
+
+            <div class="w3-container  w3-hide-small w3-hide-medium w3-card-4 w3-padding">
+                <h3 class="w3-text-unilag-maroon">Meeting Details</h3>
+                <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white " id="MeetingTable">
+                    <thead class="w3-text-unilag-maroon w3-large" style="font-weight: bold;">
+                        <tr>
+                            <td>Title</td>
+                            <td>Venue</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td>Docs</td>
+                            <td>Edit</td>
+                            <td>Delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Meetings)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Venue</td>
+                                <td>@item.DateTime.ToString("MMM d, yyy")</td>
+                                <td>@item.DateTime.ToString("hh:mm tt")</td>
+                                <td>@item.Documents.Count</td>
+                                <td><button class="btn btn-danger2 " id="js-edit-btn" Meeting_ID=" @item.MeetingID"><i class="fa fa-pencil"></i></button></td>
+                                <td><button class="btn w3-grey " id="js-delete-btn" Meeting_ID=" @item.MeetingID"><i class="fa fa-trash"></i></button></td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table><br>
+
+            </div>
+
+           
+
+            <div class="w3-container" id="SysAdministrators" style="display: none;">
+                <h5>Administrators</h5>
+                <ul class="w3-ul w3-card-4 w3-white">
+                    <li class="w3-padding-16">
+                        <img src="~/Images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+                        <span class="w3-xlarge">Mike</span><br>
+                    </li>
+
+                </ul>
+            </div>
+            <hr>
+
+
+        </div>
+
+    </div>
+
+    <footer class=" navbar navbar-inverse navbar-fixed-bottom  w3-margin-top" style="background-color: #841E23; font-family: 'Righteous', cursive;">
+        <h6 class="w3-center w3-text-white">&copy; @DateTime.Now.Year - University of Lagos</h6>
+    </footer>
+
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @RenderSection("scripts", required: false)
+    <script>
+
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        // Toggle between showing and hiding the sidebar, and add overlay effect
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            $("#LogOutBtn").click(function () {
+                $("#logoutForm").submit();
+            })
+
+            w3.getHttpObject("/Dashboard/ViewUserRoles", myFunction);
+
+            $("#CreateNotification").click(function (e) {
+                document.location.href = '@Url.Action("Create","Home")';
+            });
+            $("#SimpleForm").css({ "display": "none" })
+            $("#roleAssignment").click(function () {
+
+                $("#SimpleForm").slideToggle(2000)
+            })
+
+            $("#ViewSysAdmin").click(function () {
+
+                $("#SimpleForm").fadeOut(2000, function () {
+
+                    $("#id02").css({ "display": "block" });
+                })
+
+                $("#RemoveUserForm").on("submit", function (event) {
+                    event.preventDefault();
+
+                    if ($(this).valid()) {
+
+                        var Usertxt = $("#Usertxt1").children("option:selected").val();
+
+                        var Roletxt = $("#Roletxt1").children("option:selected").val();
+
+
+                        $.get("/Dashboard/DeleteUserFromRole", { userid: Usertxt, roleid: Roletxt }, function (result) {
+                            if (result == "Success!") {
+                                bootbox.alert("User has been removed from " + "<b>" + Roletxt + "</b>" + "role");
+
+                                $("#id02").fadeOut(3000, function () {
+
+                                    location.reload(true);
+                                });
+                            }
+
+                            else {
+
+                                bootbox.alert(result);
+
+                            }
+                           
+
+                        })
+
+                    }
+                });
+
+
+            });
+
+
+
+
+            // Processing Role Assignment Form
+            $("#SimpleForm").on("submit", function (event) {
+                event.preventDefault();
+
+                if ($(this).valid()) {
+
+                    var Usertxt = $("#Usertxt").children("option:selected").val();
+
+                    var Roletxt = $("#Roletxt").children("option:selected").val();
+
+
+                    $.get("/Dashboard/AssignRole", { userid: Usertxt, roleid: Roletxt }, function (result) {
+
+                        bootbox.alert(result);
+                        $("#SimpleForm").slideUp(2000, function () {
+                            location.reload(true);
+                        })
+
+                    })
+
+                    w3.getHttpObject("/Dashboard/ViewUserRoles", myFunction);
+                }
+            });
+
+
+            $("#CreateUserForm").on("submit", function (event) {
+                event.preventDefault();
+
+                if ($(this).valid()) {
+
+                    var User_first = $("#user_first").val();
+
+                    var UserPass = $("#user_password").val();
+
+                    var Roletxt = $("#user_role").children("option:selected").val();
+
+                   // bootbox.alert("Username: " + User_first + " <br/>" + "Password: " +  UserPass + "<br/>" + "User Role " + Roletxt);
+
+
+                    $.get("/Dashboard/CreateUser", { username: User_first, password: UserPass, role: Roletxt }, function (result) {
+
+                        if (result == "Success")
+                        {
+                            bootbox.alert("User: " + "<b>" + User_first + "</b>" + " has been created", function() {
+                                location.reload(true);
+                            });
+                           
+                        }
+                        else
+                        {
+                            bootbox.alert("Something went Wrong!!!");
+
+                        }
+
+
+                    })
+
+                    w3.getHttpObject("/Dashboard/ViewUserRoles", myFunction);
+                }
+            });
+
+            $("#MeetingTable").DataTable({
+                responsive: true
+            });
+
+            $("*#js-delete-btn").click(function (e) {
+
+                var self = $(this);
+
+                bootbox.confirm({
+                    message: "Do you really want to delete this meeting notification?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+
+
+                        if (result === true) {
+                            $.get("/Home/DeleteMeeting", { id: self.attr('Meeting_ID') }, function (result) {
+
+                                if (result === "Meeting Notification Deleted!") {
+
+
+                                    var Count = $("#MeetingCounter").text();
+
+                                    var Count = parseInt($("#MeetingCounter").text());
+                                    Count = Count - 1;
+                                    $("#MeetingCounter").text(Count.toString());
+                                    //alert(Count.toString());
+                                    self.parents("tr").fadeOut(3000, function () {
+
+
+
+
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+            $("*#js-edit-btn").click(function (e) {
+                document.location.href = '@Url.Action("Edity","Home")' + "/" + $(this).attr("Meeting_ID");
+            });
+
+
+            function myFunction(data) {
+                w3.displayObject("id01", data);
+            }
+        });
+    </script>
+
+</body>
+</html>
+

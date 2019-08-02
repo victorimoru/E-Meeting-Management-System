@@ -1,0 +1,127 @@
+﻿@model E_MeetingMS.ViewModels.EditMeetingViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<h3 class="w3-text-unilag-maroon" style="margin-top: 80px;">Editing Meeting Notification</h3>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    <h3 class="w3-text-unilag-maroon w3-margin-left"><b>Editing Meeting Notification</b></h3>
+    @using (Html.BeginForm("Edity", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-5">
+            @Html.HiddenFor(d => d.Meeting_Id, new { Value = Model.Meeting_Id })
+            <div class="w3-panel w3-card-4 w3-margin-left w3-padding-large w3-text-unilag-maroon ">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label " })
+
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "w3-input", placeholder = "Venue of the meeting" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Venue, htmlAttributes: new { @class = "control-label " })
+
+                    @Html.EditorFor(model => model.Venue, new { htmlAttributes = new { @class = "w3-input", placeholder = "Venue of the meeting" } })
+                    @Html.ValidationMessageFor(model => model.Venue, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "w3-input", placeholder = " Format: dd/MM/yyyy" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "" })
+
+                    @Html.DropDownListFor(m => m.Time, new SelectList(Model.ExactTime, "Display", "Hidden"), "Select Time",
+                                   new { @class = "form-control w3-margin-bottom ", id = "Destinationtxt" })
+                    @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+
+                </div>
+
+
+                <div class="form-group  input-group ">
+                    <label for="fileinput" class="control-label ">Document(s)</label>
+                    <input type="file" name="postedFiles" multiple="multiple" id="fileinput" class="custom-file-label w3-button w3-round-xlarge" />
+                    <span class="w3-text-black w3-large"><strong>@Model.DocCounter Document(s) </strong></span>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+        <div class="col-md-7">
+            <div class="w3-panel w3-card-4 w3-margin-left w3-padding-large w3-t">
+
+                <h4 class="w3-text-unilag-maroon"> Select Participants</h4>
+                <div class="col-lg-5 col-xs-8">
+                    @Html.DropDownListFor(m => m.selectedUsers, new MultiSelectList(Model.Userlist, "Id", "UserName"),
+                                   new { @class = "form-control w3-section", multiple = "multiple", size = 11 })
+                </div>
+
+
+                <div class="col-md-2 col-xs-4 w3-margin-top">
+                    <button type="button" id="selectedUsers_undo" class="btn btn-danger2 btn-block">UNDO</button>
+                    <button type="button" id="selectedUsers_rightAll" class="btn w3-black btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                    <button type="button" id="selectedUsers_rightSelected" class="btn w3-black btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button type="button" id="selectedUsers_leftSelected" class="btn w3-black btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button type="button" id="selectedUsers_leftAll" class="btn w3-black btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                    <button type="button" id="selectedUsers_redo" class="btn btn-danger2 btn-block">REDO</button>
+                </div>
+
+                @*<div class="col-lg-5 col-xs-10 w3-margin-top">
+                    <select name="to" id="selectedUsers_to" class="form-control" size="11" multiple="multiple"></select>
+                </div>*@
+
+                <div class="col-lg-5 col-xs-10 ">
+                    @Html.DropDownListFor(m => m.to, new MultiSelectList(Model.selectedUSersInDB, "Id", "UserName"),
+                                   new { @class = "form-control w3-section", multiple = "multiple", size = 11, name = "to", id = "selectedUsers_to" })
+                </div>
+
+
+                <div class="w3-mobile w3-right">
+                    <button type="submit" class="btn btn-danger2 btn-lg w3-right  w3-section ">Submit</button>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    }
+</div>
+
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            $('#selectedUsers').multiselect();
+
+        });
+
+
+    </script>
+
+}
+

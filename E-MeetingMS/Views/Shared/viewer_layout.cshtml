@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="icon" type="image/x-icon" href="~/Images/unilag_icon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+   
+   
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    
+    
+</head>
+<body>
+    <div class="navbar  navbar-inverse navbar-fixed-top navbar-static-top " style="font-family: 'Montserrat';">
+        <div class="container">
+
+            <div class="navbar-header ">
+                <button type="button" class="navbar-toggle w3-margin-top" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#home" class="w3-padding w3-text-white  w3-xlarge w3-left"><img src="~/Images/transparent.png" style="width: 90px; height: 90px;" /></a>
+
+                @Html.ActionLink("E-Meeting Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand w3-text-white w3-xlarge w3-margin-top w3-hide-small w3-hide-medium " })
+                @Html.ActionLink("E-Meeting MS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand w3-text-white w3-xlarge w3-margin-top w3-hide-small w3-hide-large " })
+
+                @Html.ActionLink("E-Meeting MS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand w3-text-white w3-large w3-margin-top w3-hide-large w3-hide-medium" })
+
+
+
+            </div>
+            <div class="navbar-collapse collapse">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="w3-container">
+        @RenderBody()
+        <hr />
+        <footer class=" navbar navbar-inverse navbar-fixed-bottom w3-padding-16 w3-margin-top" style="background-color: #841E23; font-family: 'Righteous', cursive;">
+            <h6 class="w3-center w3-text-white">&copy; @DateTime.Now.Year - University of Lagos</h6>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/viewer-lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

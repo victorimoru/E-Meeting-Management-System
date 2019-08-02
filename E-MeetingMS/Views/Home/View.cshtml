@@ -1,0 +1,309 @@
+﻿
+@model E_MeetingMS.ViewModels.ViewDocumentViewModel
+@{
+    ViewBag.Title = "Document Viewer";
+    Layout = "~/Views/Shared/viewer_layout.cshtml";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+<br /><br />
+<div class="w3-row-padding w3-margin-top " id="app-4">
+    @*<p class="w3-center w3-xlarge w3-margin-top">Friday Parley II</p>*@
+    <br /><br />
+    <div class=" w3-col l8 w3-margin-bottom">
+      
+            @*<div class="w3-tag w3-round w3-large w3-unilag-maroon  w3-border w3-border-white" style="text-transform:uppercase">
+                <h5 class="w3-text-white w3-animate-bottom">{{Document_Name}}</h5>
+            </div>*@
+        
+     
+        <embed class="w3-hide-small"  v-bind:src="ShowDocument" type="application/pdf" width="100%" height="800px" />
+        <embed class="w3-hide-large w3-hide-medium" v-bind:src="ShowDocument" type="application/pdf" width="350" height="400px" />
+    </div>
+    <div class="w3-col l4">
+        <div class="w3-unilag-maroon  w3-round-large w3-padding" style="height: 350px; overflow-y: scroll;">
+            <h5 class="w3-text-white"><b>Documents</b></h5>
+            <p><button v-for="document in Documents" v-on:click="HandleClick(document, $event)" doc_src="" class="w3-button w3-block w3-white w3-round w3-margin-bottom"><i class='far fa-file-pdf' style='font-size:20px'></i>
+                   <b class="text-center">{{document.name}}</b></button></p>
+        </div>
+
+        @*Comment Box*@
+        <div class="w3-margin-top">
+            <div>
+                <div class="w3-card w3-round-xlarge w3-white panel" v-show="postButton">
+                    <div class="w3-container w3-padding">
+                        <h3 class=" w3-text-unilag-maroon" style="font-weight: bolder">Document Review</h3>
+                        <textarea v-model="newComment" rows="4" class="w3-input w3-border w3-margin-bottom" placeholder="Add a comment" style="max-width: 100%;"></textarea>
+
+                        <button :disabled="newComment.length < 10" v-on:click="addComment('@User.Identity.Name', '@DateTime.Now')" class="btn btn-danger2 btn-lg"><i class="fas fa-marker"></i> Post</button>
+
+                    </div>
+                </div>
+                <p> </p>
+
+              
+                <div class="container">
+               
+                    <!-- Trigger the modal with a button -->
+                    
+                    <!-- Button trigger modal -->
+                    
+                    <button  data-toggle="modal" data-target="#exampleModalLong" v-show="postButton" id="myBtn" class="btn w3-black w3-round-medium"><i class='fas fa-file-archive' style='font-size:24px'></i> Recent Critiques!</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog" style="overflow-y: scroll;">
+                        <div class="modal-dialog modal-lg">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h5 class="w3-text-unilag-maroon"><i class='far fa-comments' style='font-size:36px'></i> <b>Critiques</b></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="w3-container" style=" max-height: calc(100vh - 11rem); overflow-y: scroll">
+                                       
+
+                                        <doc_review v-on:delete-review="Delete_Review" v-for="post in Comments"
+                                                    v-bind:key="post.id"
+                                                    v-bind:delindex="post.id"
+                                                    v-bind:username="post.username"
+                                                    v-bind:content="post.content"
+                                                    v-bind:datetime="post.datetime">
+
+                                        </doc_review>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+
+
+
+
+            </div>
+        </div>
+
+   </div>
+          
+    </div>
+
+       
+   
+   
+
+  
+
+
+
+
+
+
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   
+    <script> 
+
+        $(document).ready(function () {
+            $("#myBtn").click(function () {
+                $("#myModal").modal();
+            });
+        });
+
+
+        Vue.component('job', {
+            template: '<button class="btn" v-on:click="test">Click me!</button>',
+            methods: {
+                test() {
+                    this.$swal("Good job!", "You are ready to start!", "success")
+
+                }
+            }
+        });
+
+
+
+        Vue.component('doc_review', {
+
+
+            props: ['delindex', 'username', 'content', 'datetime'],
+
+            template: `<div class="">
+    <div class="w3-row  w3-container w3-padding w3-card-2 w3-margin-bottom ">
+     
+      <div class="w3-col m12 ">
+        <h6><b>{{username}}</b> <span class="w3-opacity w3-medium">{{datetime}}</span></h6>
+
+        {{content}}
+
+            <button v-if="(Istrue(username) || DeleteBtn)" @@click="DeleteReview(delindex)" class ="btn btn-danger w3-tiny w3-right"> <i class ="fa fa-trash"> </i></button>
+      </div>
+
+    </div>
+    </div>
+  </div> `,
+
+            data: function () {
+                return {
+                    DeleteBtn: false
+                }
+            },
+            methods: {
+
+                DeleteReview(delindex) {
+                    this.$emit("delete-review", delindex)
+
+                },
+
+                Istrue(username) {
+                    var flag
+                    var authenticatedUser = '@User.Identity.Name'
+                    var roleName = 'SuperAdmin'
+                    var isInRole = ''
+
+                    axios.post('/Home/RoleChecker', { username: authenticatedUser, roleName: roleName })
+                       .then(res => {
+                           isInRole = res.data;
+                           if ((isInRole === "In Role") || (authenticatedUser === username)) {
+                               console.log("I'm returing true")
+                               this.DeleteBtn = true;
+                           }
+                           else {
+                               console.log("I'm returing false")
+                              this.DeleteBtn = false
+                           }
+
+
+
+                       });
+
+
+                    return flag
+                },
+
+                IsValidated(username) {
+
+
+
+
+
+                }
+            }
+        });
+
+
+
+
+        var app4 = new Vue({
+            el: '#app-4',
+
+            mounted() {
+
+                axios
+                    .get('/Home/GetDocuments/' + '@Model.DocMeetingID')
+                .then(response => (this.Documents = response.data.results))
+                .catch(error => console.log(error))
+
+
+            },
+            data: {
+
+                modalShow: false,
+
+                newComment: "",
+
+                postButton: false,
+
+                Document_Name: "Click on a Document",
+
+                currentID: "",
+
+                ShowDocument: "",
+
+
+                Comments: [],
+
+                Documents: []
+                //Documents: [{ "id": 11, "name": "Analysis_290319.xlsx", "url": "Analysis_290319.xlsx" }, { "id": 12, "name": "Broad_SHEET.xlsx", "url": "Broad_SHEET.xlsx" }, { "id": 13, "name": "Broad_sheet_SSS1a.xlsx", "url": "Broad_sheet_SSS1a.xlsx" }, { "id": 14, "name": "bvn.pdf", "url": "bvn.pdf" }, { "id": 15, "name": "computer virus 2.pptx", "url": "computer virus 2.pptx" }]
+
+            },
+
+            methods: {
+
+                addComment: function (message, last) {
+                    var you = this.newComment;
+
+                    this.Comments.push({ username: message, content: this.newComment, datetime: last })
+                    console.log(this.currentID)
+                   
+                    axios.post('/Home/PostComment', { username: message, content: this.newComment, datetime: last, DOC_ID: this.currentID })
+                        .then(res => {
+                            console.log(res);
+                        });
+
+                    this.test();
+
+
+                    this.newComment = "";
+
+                },
+
+                test: function() {
+                    this.$swal("Good job!", "Your Document Review has been saved!", "success")
+                },
+            
+
+                Delete_Review: function (id) {
+
+
+                    console.log(id);
+                    var filteredarray = this.Comments.filter(s => s.id !== id)
+                    this.Comments = filteredarray;
+                    axios.post('/Home/DeleteComment', { comment_id: id })
+                       .then(res => {
+                           console.log(res);
+                       });
+                },
+
+                HandleClick: function (message, event) {
+                    this.ShowDocument = ""
+                    this.ShowDocument = "/Docs/" + message.url
+                    console.log(this.ShowDocument)
+                    //location.reload(true)
+                    this.RetrieveComment(message.id)
+                    this.currentID = message.id
+                    this.Document_Name = message.name
+                    this.postButton = true;
+                   // console.log(this.currentID);
+                },
+
+                RetrieveComment: function (id) {
+
+                    axios
+                    .get('/Home/CommentView/' + id)
+                .then(response => (this.Comments = response.data.Comments))
+                .catch(error => console.log(error))
+
+                }
+
+
+            },
+            computed: {
+
+                formattedComment () {
+                    return Object.values(this.Comments)
+                }
+
+            }
+        })
+    </script>
+
+}

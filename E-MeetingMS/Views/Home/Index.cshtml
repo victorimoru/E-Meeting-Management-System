@@ -1,0 +1,161 @@
+﻿@model E_MeetingMS.ViewModels.UpcomingViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<!-- First Photo Grid-->
+<div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <br /><br /><br /><br />
+    @if (Model.Meetings.Count > 0)
+    {
+        <h2 class="w3-text-white"><b>Upcoming Meetings</b></h2>
+    }
+    else
+    {
+        <h1 class="w3-text-white"><b>No Meeting Notification at the moment!</b></h1>
+    }
+
+    @foreach (var item in Model.Meetings)
+    {
+        // Laptop 
+        <div class="w3-third w3-hide-medium ">
+            <div class="w3-opacity-min w3-grey w3-border-black  w3-padding-24 w3-hover-opacity-off w3 w3-round-xlarge w3-section" style="background-color: #5d81e6;">
+                <h4 class="w3-xlarge w3-text-unilag-maroon"><b>@item.Title</b></h4>
+                <hr class="w3-opacity">
+                <div>
+                    <h5>
+                        <i class="fa fa-map-marker fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon" style="font-size:36px">
+                        </i><b>@item.Venue</b>
+                    </h5>
+                    <h5><i class="fa fa-calendar fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon"></i><b>@item.DateTime.ToString("dddd, dd MMMM yyyy")</b></h5>
+                    <h5><i class="fa fa-clock-o fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon"></i><b>@item.DateTime.ToString("h:mm tt")</b></h5>
+
+                    <h5>
+                        <i class="fa fa-file fa-fw w3-margin-right w3-large w3-text-unilag-maroon"></i>
+                        <b>@item.Documents.Count  Document(s)</b>
+                    </h5>
+
+                    <div>
+                        @if (Model.Invite.Contains(item.Title))
+                        {
+                            <button class=" js-cancel-btn btn btn-danger2  w3-unilag-maroon w3-round" id="" meeting-data-id="@item.MeetingID">Details <i class="fa fa-caret-down w3-spin"></i></button>
+                        }
+                        else
+                        {
+                            <div class="w3-tag   w3-unilag-maroon w3-right" style="transform:rotate(-6deg)">
+                                You're not a participant
+                            </div>
+                            @*<h4 class="w3-unilag-maroon w3-xlarge w3-white w3-tag">You're not participant!</h4>*@
+                        }
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+        // Tablet
+        <div class="w3-content w3-half w3-hide-large w3-hide-small">
+            <div class=" w3-grey w3-opacity-min w3-border-black  w3-padding-24 w3-hover-opacity-off w3 w3-round-xlarge w3-section" style="background-color: #5d81e6;">
+                <h4 class="w3-xlarge w3-text-unilag-maroon"><b>@item.Title</b></h4>
+                <hr class="w3-opacity">
+                <div>
+                    <h5>
+                        <i class="fa fa-map-marker fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon" style="font-size:36px">
+                        </i><b>@item.Venue</b>
+                    </h5>
+                    <h5><i class="fa fa-calendar fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon"></i><b>@item.DateTime.ToString("dddd, dd MMMM yyyy")</b></h5>
+                    <h5><i class="fa fa-clock-o fa-fw w3-margin-right w3-xlarge w3-text-unilag-maroon"></i><b>@item.DateTime.ToString("h:mm tt")</b></h5>
+
+                    <h5>
+                        <i class="fa fa-file fa-fw w3-margin-right w3-large w3-text-unilag-maroon"></i>
+                        <b>@item.Documents.Count  Document(s)</b>
+                    </h5>
+
+                    <div>
+                        @if (Model.Invite.Contains(item.Title))
+                        {
+                            <button class=" js-cancel-btn btn btn-danger2  w3-unilag-maroon w3-round" id="" meeting-data-id="@item.MeetingID">Details <i class="fa fa-caret-down w3-spin"></i></button>
+                        }
+                        else
+                        {
+                            <div class="w3-tag   w3-unilag-maroon w3-right" style="transform:rotate(-6deg)">
+                                You're not a participant
+                            </div>
+                            @*<h4 class="w3-unilag-maroon w3-xlarge w3-white w3-tag">You're not participant!</h4>*@
+                        }
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var $self = $(this)
+            $("*#js-editBtn").click(function () {
+                alert("HTML: " + $(this).attr("meeting-data-id"));
+                document.location.href = '@Url.Action("Edity","Home")' + "/" + $(this).attr("meeting-data-id");
+
+            });
+
+            $("*.js-cancel-btn").click(function (e) {
+
+                document.location.href = '@Url.Action("View","Home")' + "/" + $(this).attr("meeting-data-id");
+                //alert("Button Deleted")
+                //$.ajax({
+                //    url: "api/meetings/" + link.attr("meeting-data-id"),
+                //    method: "DELETE",
+                //    success: function () {
+
+                //        link.parents("li").fadeOut(3000, function () {
+                //            $(this).remove();
+                //        })
+
+                //    }
+
+                //})
+
+            });
+        });
+    </script>
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

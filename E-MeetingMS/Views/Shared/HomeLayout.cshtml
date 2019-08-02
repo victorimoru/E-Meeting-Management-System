@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Home</title>
+    @Styles.Render("~/Content/Home_css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+
+<body>
+    <!-- Large Screen -->
+    <div class="bgimg w3-display-container w3-text-white w3-hide-medium w3-hide-small ">
+
+        <div class="w3-display-topright w3-padding w3-hide-small " style="width:50%;">
+            <div class="  w3-padding-large w3-round-large w3-row">
+
+                <div class="w3-col s9">
+
+                    <h1 class="w3-xxlarge w3-center  " style="color: #841E23;  font-family: 'Righteous', cursive;
+        font-weight: bold;">
+                        E-Meeting Management System
+                    </h1>
+                </div>
+                <div class="w3-col s3">
+                    <img class="w3-center" src="../Images/transparent.png" width="100px" height="100px">
+                </div>
+            </div>
+
+        </div>
+        <div class="w3-display-topleft w3-container w3-xlarge w3-margin-top">
+            <p>
+                <button style="background-color: #841E23;" id="administrator" class="w3-button w3-text-white w3-block w3-round-large">
+                    <span class="glyphicon glyphicon-user"></span> Administrator
+                </button>
+            </p>
+            <p>
+                <button style="background-color: #841E23;" id="login" class="w3-button w3-block w3-text-white w3-round-large ">
+                    <span class="glyphicon glyphicon-log-in"></span>    Login
+                </button>
+            </p>
+        </div>
+        <div class="w3-display-bottomleft w3-container">
+            <p class="w3-xlarge w3-round-medium w3-padding" style="background-color: #841E23;"><b>July 27th, 2019</b></p>
+            <p>&copy; 2019- University of Lagos</p>
+        </div>
+    </div>
+    <!-- Tablets -->
+    <div class="bgimg_medium w3-hide-small w3-hide-large  w3-display-container w3-text-white ">
+
+        <div class="w3-display-topright w3-padding w3-hide-small " style="width:70%;">
+            <div class="  w3-padding-large w3-round-large w3-row ">
+
+                <div class="w3-col s9">
+
+                    <h1 class="w3-xlarge w3-center w3-text-white" style="color: #841E23;  font-family: 'Righteous', cursive;
+      font-weight: bold;">
+                        E-Meeting Management System
+                    </h1>
+                </div>
+                <div class="w3-col s3">
+                    <img class="w3-center" src="../Images/transparent.png" width="90px" height="90px">
+                </div>
+            </div>
+
+        </div>
+        <div class="w3-display-topleft w3-container w3-xlarge w3-margin-top" style="width:25%;">
+            <p>
+                <button style="background-color: #841E23;" onclick="document.getElementById('menu').style.display='block'" class="w3-button w3-text-white w3-block w3-round-large">
+                    <span class="glyphicon glyphicon-user"></span> Admin
+                </button>
+            </p>
+            <p>
+                <button style="background-color: #841E23;" onclick="document.getElementById('contact').style.display='block'" class="w3-button w3-block w3-text-white w3-round-large ">
+                    <span class="glyphicon glyphicon-log-in"></span>    Login
+                </button>
+            </p>
+        </div>
+        <div class="w3-display-bottomleft w3-container">
+            <p class="w3-large w3-text-white w3-padding w3-round-medium" style="background-color: #841E23;"><b>July 27th, 2019</b></p>
+            <p> <p>&copy; 2019- University of Lagos</p></p>
+        </div>
+    </div>
+    <!-- Small Screen -->
+    <div class="bgimg_small  w3-hide-large w3-hide-medium  w3-display-container w3-text-white ">
+
+
+        <div class="w3-display-topmiddle w3-padding  " style="width:100%;">
+            <div class="  w3-padding-large w3-round-large w3-row ">
+                <div class="w3-col s3">
+                    <img class="w3-center" src="../Images/transparent.png" width="60px" height="60px">
+                </div>
+                <div class="w3-col s9">
+
+                    <h3 class="w3-large w3-center w3-text-white" style="color: #841E23;  font-family: 'Righteous', cursive;">
+                        E-Meeting Management System
+                    </h3>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="w3-display-middle w3-container w3-medium w3-margin-top" style="width:100%;">
+            <p>
+                <button style="background-color: #841E23;" onclick="document.getElementById('menu').style.display='block'"
+                        class="w3-button w3-text-white w3-block w3-round-large  w3-opacity w3-hover-opacity-off">
+                    <span class="glyphicon glyphicon-user"></span> Admin
+                </button>
+            </p>
+            <p>
+                <button style="background-color: #841E23;" onclick="document.getElementById('contact').style.display='block'"
+                        class="w3-button w3-block w3-text-white w3-round-large w3-opacity w3-hover-opacity-off">
+                    <span class="glyphicon glyphicon-log-in"></span>    Login
+                </button>
+            </p>
+        </div>
+        <div class="w3-display-bottomleft w3-container">
+            <p class="w3-large w3-text-white w3-padding w3-round-medium" style="background-color: #841E23;"><b>July 27th, 2019</b></p>
+            <p>&copy; 2019- University of Lagos</p>
+        </div>
+    </div>
+  
+   
+ 
+    <!-- Administrator Modal -->
+    <div id="menu" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-round-large">
+            <div class="w3-container w3-text-white w3-center w3-round-medium" style="background-color: #841E23;">
+                <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+                <h1>Contact</h1>
+            </div>
+            <div class="w3-container">
+              hi
+            </div>
+        </div>
+    </div>
+   
+    <!-- Login Modal -->
+    <div id="contact" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-round-large">
+            <div class="w3-container w3-text-white w3-center w3-round-medium" style="background-color: #841E23;">
+                <span onclick="document.getElementById('contact').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+                <h1>LOGIN</h1>
+            </div>
+            <div class="w3-container">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+ 
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @RenderSection("scripts", required: false) 
+    <script>
+
+        $(document).ready(function () {
+
+            $("#login").click(function () {
+                $("#contact").css({ "display": "block" });
+            })
+
+        });
+
+        
+
+    </script>
+</body>
+</html>

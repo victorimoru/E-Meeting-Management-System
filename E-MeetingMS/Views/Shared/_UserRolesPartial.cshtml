@@ -1,0 +1,13 @@
+﻿@model E_MeetingMS.ViewModels.DashboardViewModel
+
+<div class="form-group">
+   
+                    @Html.DropDownListFor(m => m.selectedUser, new MultiSelectList(Model.Users, "Id", "UserName"),
+                                   new { @class = "form-control w3-section", multiple = "multiple", size = 11 })
+</div>
+
+<div class="form-group">
+   
+    @Html.DropDownListFor(m => m.selectedUser, new MultiSelectList(Model.Users, "Id", "UserName"),
+                                   new { @class = "form-control w3-section", multiple = "multiple", size = 11 })
+</div>

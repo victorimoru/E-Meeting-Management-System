@@ -1,0 +1,142 @@
+/* OVERIDING BOOTSTRAP*/
+.navbar-inverse {
+    /*background-color: #8C1F1F;*/
+    background-color: #841E23;
+    /*border-color: #f1c330;*/
+}
+
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    font-size: 19px;   
+    /*margin-top: 16px;*/
+
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: black;
+    font-size: 18px;
+    color: white;
+}
+
+ /*Application Name*/
+.navbar-inverse .navbar-brand {
+    color: #841E23;
+    /*font-family: "Montserrat", sans-serif;*/
+    font-family: 'Righteous', cursive;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #ffffff;
+    
+}
+
+
+.form-control:focus {
+    /*border-color: #9d1f45;*/
+} 
+
+
+.w3-text-unilag-gold {
+
+    color: #f1c330;
+
+}
+
+.w3-unilag-gold {
+
+    background-color: grey;
+
+}
+
+.w3-text-unilag-maroon {
+
+    color: #841E23;
+}
+
+.w3-unilag-maroon {
+    color: white;
+    background-color: #841E23;
+}
+
+/*.w3-hover-unilag:hover{color:#f1c330 !important;background-color:black!important}*/
+
+.w3-white, .w3-hover-white:hover {
+    color: black;
+    background-color: transparent;
+}
+
+.w3-meetingNotify{
+    font-family: "Montserrat";
+    font-weight: bolder;
+    color: #841E23;
+}
+
+.btn-danger2 {
+    color: white;
+    background-color: #841E23;
+    border-color: #b75270;
+}
+
+
+.form-control {
+    font-size: 16px;
+}
+
+/*.btn:hover {
+    color: white;
+    text-decoration: #b75270;
+    background-color: black;
+}*/
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1300px;
+    }
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #841E23;
+    font-size: larger;
+}
+
+.w3-button:hover {
+    color: black;
+    background-color: #9d1f45;
+       
+}
+
+.asideMenu > a:hover {
+    text-decoration: none;
+}
+
+.btn-danger2:hover, .btn-danger2:focus {
+  color: white;
+  text-decoration: none;
+}
+
+.btn-tertiary {
+
+     color: WHITE!important;
+    background-color: #841E23;
+    border-color: #841E23;
+
+}
+
+.btn-tertiary:hover, .btn-tertiary:focus {
+
+     color: #ffffff;
+
+}
+
+.w3-margin-topp {
+    margin-top: 18px;
+}
+
+.modal {
+    overflow-y: scroll;
+}

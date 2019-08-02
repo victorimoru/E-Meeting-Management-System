@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="icon" type="image/x-icon" href="~/Images/unilag_icon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
+    <title>Dashboard</title>
+
+
+    @Styles.Render("~/Content/Dashboard_css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class=""  style="font-family: Montserrat">
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-card-4 w3-text-unilag-maroon w3-collapse w3-top" style="z-index:3;width:360px" id="mySidebar">
+        <div class="w3-container w3-display-container w3-padding-16">
+            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
+            <div class="w3-container w3-row">
+                <div class="w3-col s4">
+                    <img src="~/Images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+                </div>
+                <div class="w3-col s8 w3-bar">
+                    <span>Welcome, <strong>Mike</strong></span><br>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+            <hr>
+            <div class="w3-container" style="font-weight: bolder">
+
+            </div>
+            <div class="w3-bar-block w3-medium" style="text-decoration: none">
+               
+              
+            </div>
+
+            <hr />
+
+            <!-- Form to Assign Roles to Users -->
+           <div id="RoleForm">
+
+               <form class="w3-container " action="/action_page.php">
+
+                   <h5> Select User</h5>
+                   <select class="w3-select" name="option">
+                       <option value="" disabled selected>Choose your option</option>
+                       <option value="1">Option 1</option>
+                       <option value="2">Option 2</option>
+                       <option value="3">Option 3</option>
+                   </select>
+                   <h5> Select Role</h5>
+                   <select class="w3-select" name="option">
+                       <option value="" disabled selected>Choose your option</option>
+                       <option value="1">Option 1</option>
+                       <option value="2">Option 2</option>
+                       <option value="3">Option 3</option>
+                   </select>
+
+                   <p class="w3-section"><button class="w3-btn w3-unilag-maroon w3-text-white">Assign Role</button></p>
+               </form>
+           </div>
+        </div>
+
+    </nav>
+    
+    <!-- Top menu on small screens -->
+    <header class="w3-bar w3-top w3-card-4 w3-hide-large w3-unilag-maroon w3-opacity w3-xlarge">
+        <div class="w3-bar-item w3-padding-24 w3-wide w3-text-unilag-gold">E-Meeting MS</div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars w3-text-white"></i></a>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:380px">
+
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <p class="w3-left  w3-text-unilag-maroon"><b><i class=" w3-text-unilag-gold fa fa-dashboard"></i> My Dashboard</b></p>
+
+            <!-- Top Banners -->
+            <div class="w3-row-padding w3-margin-bottom">
+                <div class="w3-half jackky">
+                    <div class="w3-container w3-unilag-maroon w3-round-large w3-text-unilag-gold w3-padding-16 w3-hover-opacity">
+                        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+                        <div class="w3-right">
+                            <h3>52</h3>
+                        </div>
+                        <div class="w3-clear"></div>
+                        <h4><strong>Meeting Notifications</strong></h4>
+                    </div>
+                </div>
+
+                <div class="w3-half">
+                    <div class="w3-container w3-unilag-gold w3-text-unilag-maroon w3-padding-16 w3-round-large w3-hover-opacity">
+                        <div class="w3-left"><i class="fa fa-users w3-xxxlarge  "></i></div>
+                        <div class="w3-right">
+                            <h3>99</h3>
+                        </div>
+                        <div class="w3-clear"></div>
+                        <h4 class="w3-text-unilag-maroon"><strong>Participants</strong></h4>
+                    </div>
+                </div>
+            </div>
+     
+        </header>
+
+        @RenderBody()
+        <footer class="w3-margin-top w3-black w3-text-unilag-gold" style="font-family: Montserrat">
+            <div class="w3-center w3-padding-24 w3-unilag-maroon w3-text-unilag-gold">
+                <p><strong>@DateTime.Now.Year - My ASP.NET Application</strong> </p>
+            </div>
+
+            <!-- End page content -->
+        </footer>
+        </div>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/app.js/main.js">
+
+        $(document).ready( function () {
+
+            $("*#js-delete-btn").click(function (e) {
+
+                alert("Button Deleted")
+                //$.ajax({
+                //    url: "api/meetings/" + link.attr("meeting-data-id"),
+                //    method: "DELETE",
+                //    success: function () {
+
+                //        link.parents("li").fadeOut(3000, function () {
+                //            $(this).remove();
+                //        })
+
+                //    }
+
+                //})
+
+            });
+
+
+
+        });
+    </script>
+</body>
+</html>

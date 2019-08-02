@@ -1,0 +1,193 @@
+﻿@model E_MeetingMS.ViewModels.DashboardViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+
+}
+
+<nav class="w3-sidebar w3-card-4 w3-text-unilag-maroon w3-collapse w3-top" style="z-index:3;width:345px; font-family: 'Montserrat'" id="mySidebar">
+    <div class="w3-container w3-display-container w3-padding-16">
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
+        <div class="w3-container w3-row">
+            <div class="w3-half">
+                <img src="~/Images/unilag_real_logo.jpg" class=" w3-margin-right w3-hide-small" style="width:80px; height: 80px">
+                <img src="~/Images/unilag_real_logo.jpg" class=" w3-margin-right w3-hide-large w3-hide-medium" style="width:50px; height: 50px">
+            </div>
+            <div class="w3-half">
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <span>Hi, <strong>@User.Identity.GetUserName()</strong></span><br>
+                        <button class="btn w3-show-inline-block  w3-right w3-margin-top w3-black"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Off</button>
+
+                    }
+                }
+
+                else
+                {
+                    <ul>
+                        <li><a href="@Url.Action("Register", "Account")" id="registerLink"><span class="glyphicon glyphicon-user"></span>  Register</a></li>
+                        <li><a href="@Url.Action("Login", "Account")" id="loginLink"><span class="glyphicon glyphicon-log-in"></span>   Login</a></li>
+
+                    </ul>
+                }
+
+            </div>
+           
+
+        </div>
+        <hr>
+        <div class="w3-container" style="font-weight: bolder">
+
+        </div>
+        <div class="w3-bar-block w3-medium asideMenu" style="text-decoration: none">
+
+            <button class="w3-bar-item btn btn-tertiary w3-block w3-large w3-margin-bottom" style="font-weight: bold" id="ViewSysAdmin"><i class="fa fa-cog fa-fw"></i> Unassign User From Role</button>
+            <button class="w3-bar-item btn btn-tertiary w3-block w3-large w3-margin-bottom" style="font-weight: bold" id="CreateNotification"><i class="fa fa-users fa-fw"></i> Create Meeting Notification</button>
+            <button class="w3-bar-item btn btn-tertiary w3-block w3-large w3-margin-bottom" onclick="document.getElementById('contact').style.display='block'" style="font-weight: bold" id="CreateAdminUser"><i class="fa fa-cog fa-fw"></i> Create User</button>
+            <button class="w3-bar-item btn btn-tertiary w3-block w3-large w3-margin-bottom" style="font-weight: bold" id="roleAssignment"><i class="fa fa-bell fa-fw"></i> Role Assignment</button>
+            @*<button class="w3-bar-item btn btn-danger2 w3-block w3-large w3-margin-bottom" style="font-weight: bold"><i class="fa fa-cog fa-fw"></i> Settings</button>*@
+
+        </div>
+
+        <hr />
+
+        <!-- Form to Assign Roles to Users -->
+        @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { id = "SimpleForm" }))
+        {
+            <h5 class="w3-center w3-wide"><b>Role Assignment</b></h5>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.selectedUser, htmlAttributes: new { @class = "w3-margin-top" })
+
+                @Html.DropDownListFor(m => m.selectedUser, new SelectList(Model.Users, "Id", "UserName"), "Select UserName",
+                                   new { @class = "form-control  ", id = "Usertxt" })
+                @Html.ValidationMessageFor(model => model.selectedUser, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.selectedRole, htmlAttributes: new { @class = "" })
+
+                @Html.DropDownListFor(m => m.selectedRole, new SelectList(Model.Roles, "Name", "Name"), "Select Role",
+                                   new { @class = "form-control w3-margin-bottom ", id = "Roletxt" })
+                @Html.ValidationMessageFor(model => model.selectedRole, "", new { @class = "text-danger" })
+
+            </div>
+            <p class="w3-section w3-center"><button class="btn btn-danger2 w3-block w3-unilag-maroon w3-text-white">AssignRole</button></p>
+
+
+        }
+
+
+
+        <div class="w3-container" id="SysAdministrators" style="display: block">
+            <h5><b>Administrators</b></h5>
+
+            <ul id="id01" class="w3-ul w3-text-unilag-maroon w3-card-4 ">
+                <li class="w3-padding-16" w3-repeat="results">
+                    <img src="~/Images/avatar2.png" class="w3-left w3-tiny w3-circle w3-margin-right" style="width:35px">
+                    <span class="w3-medium"><b>{{username}}</b></span><br>
+            </ul>
+
+            @*<ul class="w3-ul w3-card-4 w3-white" id="id01">
+
+
+                    </li>
+
+                </ul>*@
+        </div>
+
+
+
+        <div id="id02" class="w3-modal">
+            <div class="w3-modal-content w3-animate-bottom w3-round-xlarge style=" max-width:300px"">
+                <div class="w3-panel ">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+                    <div class="">
+
+                        @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { id = "RemoveUserForm" }))
+            {
+                            <h6 class="w3-center w3-wide"><b>Unassign User From Role </b></h6>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.selectedUser, htmlAttributes: new { @class = "w3-margin-top" })
+
+                                @Html.DropDownListFor(m => m.selectedUser, new SelectList(Model.Users, "Id", "UserName"), "Select UserName to remove",
+                                   new { @class = "form-control  ", id = "Usertxt1" })
+                                @Html.ValidationMessageFor(model => model.selectedUser, "", new { @class = "text-danger" })
+
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.selectedRole, htmlAttributes: new { @class = "" })
+
+                                @Html.DropDownListFor(m => m.selectedRole, new SelectList(Model.Roles, "Name", "Name"), "Select Role",
+                                   new { @class = "form-control w3-margin-bottom ", id = "Roletxt1" })
+                                @Html.ValidationMessageFor(model => model.selectedRole, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <p class="w3-section w3-center"><button class="btn btn-danger2 w3-block w3-unilag-maroon w3-text-white">Unassign User From Role</button></p>
+
+
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Create New User Modal (Non-Email Users) -->
+        <div id="contact" class="w3-modal">
+            <div class="w3-modal-content w3-round-xlarge w3-card-4  w3-animate-zoom ">
+                <div class="w3-container">
+                    <span onclick="document.getElementById('contact').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+                    <h3 class="w3-center w3-text-unilag-maroon"><b>Create Users</b></h3>
+                </div>
+                <div class="w3-container">
+                    <p class="w3-right"><b>Create ordinary and admin users here. </b></p>
+                    @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { id = "CreateUserForm" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "" })
+
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "w3-input w3-border w3-round-large", placeholder = " Username", id = "user_first" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "" })
+
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "w3-input w3-border w3-round-large", placeholder = " Password", id = "user_password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.selectedRole, htmlAttributes: new { @class = "" })
+
+                            @Html.DropDownListFor(m => m.selectedRole, new SelectList(Model.Roles, "Name", "Name"), "Select Role",
+                                   new { @class = "form-control w3-margin-bottom ", id = "user_role" })
+                            @Html.ValidationMessageFor(model => model.selectedRole, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <p><button class="btn btn-lg w3-black" type="submit">Create User</button></p>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</nav>

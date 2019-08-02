@@ -1,0 +1,60 @@
+﻿@model E_MeetingMS.Controllers.DocumentViewerVM
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row" style="margin-top: 108px" id="app-1">
+    <div class="col-lg-4 w3-margin-top">
+        <div class="panel w3-unilag-maroon w3-round-medium">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center"><b>Meeting Documents</b></h3>
+                <hr />
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    @foreach (var item in Model.DocumentsAll)
+                    {
+                        if (item.ID == Model.DocumentInDB.ID)
+                        {
+                            <button id="DocBtn" doc_src="@item.ID" data-id="@Model.Meeting.MeetingID" class="list-group-item btn active">
+                                <b>@item.Document_Name</b>
+                            </button>
+                        }
+                        <button id="DocBtn" doc_src="@item.ID" data-id="@Model.Meeting.MeetingID" class="list-group-item btn ">
+                            <b>@item.Document_Name</b>
+                        </button>
+
+                    }
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-lg-8">
+        <embed src="~/Docs/@Model.DocumentInDB.Document_URL" type="application/pdf" style="width: 50%"/>
+        @*<iframe id="frame" class="w3-hide-small w3-hide-medium w3-margin-top" src="/ViewerJS/#../Docs/@Model.DocumentInDB.Document_URL" width='760' height='600' allowfullscreen webkitallowfullscreen></iframe>*@
+        @* <iframe class="w3-hide-large  w3-margin-top" src="/ViewerJS/#../Docs/@Model.Document.Document_URL" width='450' height='450' allowfullscreen webkitallowfullscreen></iframe>*@
+    </div>
+</div>
+
+@section scripts {
+    
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("*#DocBtn").click(function () {
+                //alert("HTML: " + $(this).attr("doc_src"));
+                document.location.href = '@Url.Action("DocViewer","Home")' + "?id=" + $(this).attr("doc_src") + "&meeting_id=" + $(this).attr("data-id");
+            //    var link = "/ViewerJS/#../Docs/" + $(this).attr("doc_src");
+            //    alert(link);
+            //    $("#frame").attr("src", link);
+           });
+        });
+
+    </script>
+}
