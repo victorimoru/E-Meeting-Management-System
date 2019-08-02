@@ -81,11 +81,8 @@ namespace E_MeetingMS.Controllers
 
         }
 
-        [AllowAnonymous]
-        public ActionResult Index2()
-        {
-            return View();
-        }
+      
+       
         public ActionResult Index()
         {
             var user =  User.Identity.GetUserId();
